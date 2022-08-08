@@ -30,6 +30,44 @@ if(request() == 'POST')
         'route_path' => '*'
     ]);
 
+    $routes = [
+        'camat' => [
+            'default/*',
+            'crud/index?table=agenda',
+            'crud/create?table=agenda',
+            'crud/edit?table=agenda',
+            'crud/delete?table=agenda',
+            'crud/index?table=kehadiran',
+            'pantau/*',
+        ],
+        'pegawai' => [
+            'default/*',
+            'crud/index?table=agenda',
+            'crud/create?table=agenda',
+            'crud/edit?table=agenda',
+            'crud/delete?table=agenda',
+            'crud/index?table=kehadiran',
+        ]
+    ];
+
+    foreach(['camat','pegawai'] as $role)
+    {
+        $_role = $db->insert('roles',[
+            'name' => $role
+        ]);
+
+        foreach($routes[$role] as $route)
+        {
+            $db->insert('role_routes',[
+                'role_id' => $_role->id,
+                'route_path' => $route
+            ]);
+        }
+    }
+
+    mkdir('uploads');
+    mkdir('uploads/lapor');
+
     set_flash_msg(['success'=>'Instalasi Berhasil']);
     header('location:'.routeTo('auth/login'));
     die();

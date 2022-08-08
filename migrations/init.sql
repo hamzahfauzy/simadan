@@ -1,0 +1,101 @@
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE role_routes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_id INT NOT NULL,
+    route_path VARCHAR(100) NOT NULL,
+    CONSTRAINT fk_role_routes_role_id FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    CONSTRAINT fk_user_roles_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_roles_role_id FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
+CREATE TABLE application (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE migrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    filename VARCHAR(100) NOT NULL,
+    execute_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE pegawai (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    finger_id INT NOT NULL,
+    NIP VARCHAR(100) NOT NULL,
+    nama VARCHAR(100) NOT NULL,
+    jabatan VARCHAR(100) NOT NULL,
+    pangkat VARCHAR(100) NOT NULL,
+    unit_kerja VARCHAR(100) NOT NULL,
+    status VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_pegawai_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE kehadiran (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pegawai_id INT NOT NULL,
+    tanggal DATE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_kehadiran_pegawai_id FOREIGN KEY (pegawai_id) REFERENCES pegawai(id) ON DELETE CASCADE
+);
+
+CREATE TABLE kehadiran_item (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    kehadiran_id INT NOT NULL,
+    nama VARCHAR(50) DEFAULT NULL,
+    status VARCHAR(20) NOT NULL,
+    keterangan VARCHAR(100) DEFAULT NULL,
+    waktu VARCHAR(20) DEFAULT NULL,
+    CONSTRAINT fk_kehadiran_item_kehadiran_id FOREIGN KEY (kehadiran_id) REFERENCES kehadiran(id) ON DELETE CASCADE
+);
+
+CREATE TABLE agenda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pegawai_id INT NOT NULL,
+    nama VARCHAR(100) NOT NULL,
+    tanggal DATE NOT NULL,
+    waktu_mulai VARCHAR(20) NOT NULL,
+    waktu_selesai VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_agenda_pegawai_id FOREIGN KEY (pegawai_id) REFERENCES pegawai(id) ON DELETE CASCADE
+);
+
+CREATE TABLE lapor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    NIK VARCHAR(45) NOT NULL,
+    nama VARCHAR(45) NOT NULL,
+    alamat TEXT NOT NULL,
+    judul VARCHAR(100) NOT NULL,
+    deskripsi TEXT NOT NULL,
+    lokasi TEXT NOT NULL,
+    file_url VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE sync_config (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    last_id VARCHAR(45) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

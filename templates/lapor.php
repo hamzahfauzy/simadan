@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Masuk</title>
+	<title>Laporan Pengaduan Masyarakat</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="<?= routeTo('assets/img/main-logo.png')?>" type="image/x-icon"/>
 
@@ -38,22 +38,35 @@
                         <center>
                             <img src="<?=routeTo('assets/img/main-logo.png')?>" width="150px" height="100px" alt="logo" style="object-fit:contain;">
                         </center>
-                        <div class="card-title text-center">Login Form</div>
-                        <div class="card-category text-center">Masukkan Username dan Password anda pada bidang di bawah ini.</div>
+                        <div class="card-title text-center">Formulir Pengaduan</div>
 
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="">Nama Pengguna</label>
-                                <input type="text" name="username" id="" class="form-control mb-2" placeholder="Nama Pengguna Disini...">
-                                <label for="">Kata Sandi</label>
-                                <input type="password" name="password" id="" class="form-control mb-2" placeholder="Kata Sandi Disini...">
-                                <button class="btn btn-primary btn-block btn-round">Masuk</button>
+                                <?php 
+                                foreach($fields as $key => $field): 
+                                    $label = $field;
+                                    $type  = "text";
+                                    if(is_array($field))
+                                    {
+                                        $field_data = $field;
+                                        $field = $key;
+                                        $label = $field_data['label'];
+                                        if(isset($field_data['type']))
+                                        $type  = $field_data['type'];
+                                    }
+                                    $label = _ucwords($label);
+                                ?>
+                                <label for=""><?=$label?></label>
+                                <?php if($type == 'file'): ?>
+                                <?= Form::input($type, $field, ['class'=>"form-control","placeholder"=>$label,"value"=>$old[$field]??'']) ?>
+                                <?php else: ?>
+                                <?= Form::input($type, "lapor[".$field."]", ['class'=>"form-control","placeholder"=>$label,"value"=>$old[$field]??'']) ?>
+                                <?php endif ?>
+                                <?php endforeach ?>
+                                <p></p>
+                                <button class="btn btn-primary btn-block btn-round">Submit</button>
                             </div>
                         </form>
-
-                        <p></p>
-
-                        <p align="center">Untuk melakukan pengaduan masyarakat, silahkan klik <a href="<?=routeTo('lapor')?>">disini</a></p>
                     </div>
                 </div>
             </div>
