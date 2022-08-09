@@ -13,7 +13,10 @@ return [
             'label' => 'Pegawai',
             'type'  => 'options-obj:pegawai,id,nama'
         ],
-        'nama',
+        'nama' => [
+            'label' => 'Nama Agenda',
+            'type'  => 'text'
+        ],
         'tanggal' => [
             'label' => 'Tanggal',
             'type'  => 'date'
