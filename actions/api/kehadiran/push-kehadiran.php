@@ -2,14 +2,12 @@
 $conn = conn();
 $db   = new Database($conn);
 
-$NIP     = '';
-$tanggal = '';
-$nama    = '';
-$status  = '';
-$waktu   = '';
-$tanggal = '';
+$finger_id = $_POST['finger_id'];
+$tanggal   = $_POST['tanggal'];
+$nama      = $_POST['verifikasi'];
+$status    = $_POST['status'];
 
-$pegawai = $db->single('pegawai',['NIP' => $NIP]);
+$pegawai = $db->single('pegawai',['finger_id' => $finger_id]);
 
 if(!$pegawai)
 {
@@ -35,11 +33,28 @@ if(!$kehadiran)
     ]);
 }
 
+$item = $db->single('kehadiran_item',[
+    'kehadiran_id' => $kehadiran->id,
+    'nama'  => $nama,
+    'status'  => $status,
+    'waktu'  => $tanggal,
+]);
+
+if($item)
+{
+    echo json_encode([
+        'status'  => 'success',
+        'message' => 'data exists',
+        'data'    => []
+    ]);
+    die();
+}
+
 $db->insert('kehadiran_item',[
     'kehadiran_id' => $kehadiran->id,
     'nama'    => $nama,
     'status'  => $status,
-    'waktu'   => $waktu,
+    'waktu'   => $tanggal,
 ]);
 
 echo json_encode([
