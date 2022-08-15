@@ -2,6 +2,9 @@
 $conn = conn();
 $db   = new Database($conn);
 
+echo json_encode($_POST);
+die();
+
 $finger_id = $_POST['finger_id'];
 $tanggal   = $_POST['tanggal'];
 $nama      = $_POST['verifikasi'];
