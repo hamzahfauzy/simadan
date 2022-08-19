@@ -6,6 +6,7 @@ $finger_id = $_POST['finger_id'];
 $tanggal   = $_POST['tanggal'];
 $nama      = $_POST['verifikasi'];
 $status    = $_POST['status'];
+$tgl = date('Y-m-d', strtotime($tanggal));
 
 $pegawai = $db->single('pegawai',['finger_id' => $finger_id]);
 
@@ -22,14 +23,14 @@ if(!$pegawai)
 // check kehadiran
 $kehadiran = $db->single('kehadiran',[
     'pegawai_id' => $pegawai->id,
-    'tanggal'    => $tanggal
+    'tanggal'    => $tgl
 ]);
 
 if(!$kehadiran)
 {
     $kehadiran = $db->insert('kehadiran',[
         'pegawai_id' => $pegawai->id,
-        'tanggal'    => $tanggal
+        'tanggal'    => $tgl
     ]);
 }
 
