@@ -14,13 +14,13 @@ $data = array_map(function($d) use ($db) {
     $status = '';
     foreach($items as $item)
     {
-        if($item->nama != 'Masuk')
+        if($item->nama == '0')
         {
-            $status .= '<b>'.$item->nama.'</b><br>'.$item->keterangan.'<br>';
+            $status .= '<b>Masuk - '.$item->waktu.'</b>';
         }
         else
         {
-            $status .= '<b>'.$item->nama.'</b><br>'.$item->status.' - '.$item->waktu.'<br>';
+            $status .= '<b>Pulang - '.$item->waktu.'</b>';
         }
     }
     $d->status = $status;
