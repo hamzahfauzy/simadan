@@ -7,6 +7,4 @@ $fields = array_merge($fields, [
     ]
 ]);
 
-unset($fields['tanggal']);
-
 return $fields;

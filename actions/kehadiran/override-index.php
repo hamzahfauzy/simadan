@@ -16,11 +16,11 @@ $data = array_map(function($d) use ($db) {
     {
         if($item->status == '0')
         {
-            $status .= '<b>Masuk ('.$item->waktu.')</b><br>';
+            $status .= '<b>Masuk ('.date('H:i:s',strtotime($item->waktu)).')</b><br>';
         }
         else
         {
-            $status .= '<b>Pulang ('.$item->waktu.')</b><br>';
+            $status .= '<b>Pulang ('.date('H:i:s',strtotime($item->waktu)).')</b><br>';
         }
     }
     $d->status = $status;
