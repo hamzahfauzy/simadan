@@ -21,14 +21,10 @@ $data = array_map(function($d) use ($db) {
     $status = '';
     foreach($items as $item)
     {
-        if($item->status == '0')
-        {
-            $status .= '<b>Masuk ('.$item->waktu.')</b><br>';
-        }
-        else
-        {
-            $status .= '<b>Pulang ('.$item->waktu.')</b><br>';
-        }
+        $waktu = date('H:i',strtotime($item->waktu));
+        $query = "SELECT * FROM jam_kerja WHERE jam_mulai >= $waktu AND jam_selesai <= $waktu";
+        $jam_kerja = $db->exec('single');
+        $status .= '<b>'.$jam_kerja->nama.' ('.$waktu.')</b><br>';
     }
     $d->status = $status;
     return $d;

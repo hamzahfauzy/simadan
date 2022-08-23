@@ -47,5 +47,24 @@ return [
             'label' => 'Lampiran',
             'type'  => 'file'
         ]
+    ],
+    'jam_kerja' => [
+        'nama',
+        'jam_mulai' => [
+            'label' => 'Jam Mulai',
+            'type' => 'time'
+        ],
+        'jam_selesai' => [
+            'label' => 'Jam Selesai',
+            'type' => 'time'
+        ],
+        'batas_awal_absen' => [
+            'label' => 'Batas Awal Absen',
+            'type' => 'time'
+        ],
+        'batas_akhir_absen' => [
+            'label' => 'Batas Akhir Absen',
+            'type' => 'time'
+        ]
     ]
 ];
