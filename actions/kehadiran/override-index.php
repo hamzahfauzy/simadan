@@ -15,7 +15,7 @@ $data = array_map(function($d) use ($db) {
     foreach($items as $item)
     {
         $waktu = date('H:i',strtotime($item->waktu));
-        $query = "SELECT * FROM jam_kerja WHERE jam_mulai >= $waktu AND jam_selesai <= $waktu";
+        $db->query = "SELECT * FROM jam_kerja WHERE jam_mulai >= $waktu AND jam_selesai <= $waktu";
         $jam_kerja = $db->exec('single');
         $status .= '<b>'.$jam_kerja->nama.' ('.$waktu.')</b><br>';
     }
