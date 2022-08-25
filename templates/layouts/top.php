@@ -73,7 +73,7 @@
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
-									<img src="<?=asset('assets/img/user-placeholder.png')?>" alt="..." class="avatar-img rounded-circle">
+									<img src="<?=asset('assets/img/user.jpeg')?>" alt="..." class="avatar-img rounded-circle" style="object-position: top;">
 								</div>
 							</a>
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
