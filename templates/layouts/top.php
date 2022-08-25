@@ -80,7 +80,7 @@
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
 										<div class="user-box">
-											<div class="avatar-lg"><img src="<?=asset('assets/img/user-placeholder.png')?>" alt="image profile" class="avatar-img rounded"></div>
+											<div class="avatar-lg"><img src="<?=asset('assets/img/user.jpeg')?>" alt="image profile" class="avatar-img rounded" style="object-position: top;"></div>
 											<div class="u-text">
 												<h4><?=auth()->user->name?></h4>
 												<p class="text-muted"><?=get_role(auth()->user->id)->name?></p>
